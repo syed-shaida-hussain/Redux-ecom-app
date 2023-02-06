@@ -1,4 +1,4 @@
-import { Response } from "miragejs";
+import { Response } from 'miragejs';
 
 /**
  * All the routes related to Category are present here.
@@ -18,7 +18,7 @@ export const getAllCategoriesHandler = function () {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }
@@ -39,7 +39,7 @@ export const getCategoryHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }

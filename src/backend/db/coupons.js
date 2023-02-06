@@ -1,4 +1,4 @@
-import { v4 as uuid } from "uuid";
+import { v4 as uuid } from 'uuid';
 
 /**
  * Coupons Database can be added here.
@@ -8,14 +8,14 @@ import { v4 as uuid } from "uuid";
 export const coupons = [
   {
     _id: uuid(),
-    couponDescription: "50% off",
+    couponDescription: '50% off',
     coupon: 50,
-    couponCode: "SHOP50",
+    couponCode: 'SHOP50'
   },
   {
     _id: uuid(),
-    couponDescription: "30% off",
+    couponDescription: '30% off',
     coupon: 30,
-    couponCode: "SHOP30",
-  },
+    couponCode: 'SHOP30'
+  }
 ];

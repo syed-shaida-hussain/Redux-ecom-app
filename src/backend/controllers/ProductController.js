@@ -1,4 +1,4 @@
-import { Response } from "miragejs";
+import { Response } from 'miragejs';
 
 /**
  * All the routes related to Product are present here.
@@ -29,7 +29,7 @@ export const getProductHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }

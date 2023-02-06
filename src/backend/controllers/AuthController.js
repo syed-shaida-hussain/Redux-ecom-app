@@ -1,7 +1,7 @@
-import { v4 as uuid } from "uuid";
-import { Response } from "miragejs";
-import { formatDate } from "../utils/authUtils";
-const sign = require("jwt-encode");
+import { v4 as uuid } from 'uuid';
+import { Response } from 'miragejs';
+import { formatDate } from '../utils/authUtils';
+const sign = require('jwt-encode');
 /**
  * All the routes related to Auth are present here.
  * These are Publicly accessible routes.
@@ -23,7 +23,7 @@ export const signupHandler = function (schema, request) {
         422,
         {},
         {
-          errors: ["Unprocessable Entity. Email Already Exists."],
+          errors: ['Unprocessable Entity. Email Already Exists.']
         }
       );
     }
@@ -37,9 +37,10 @@ export const signupHandler = function (schema, request) {
       ...rest,
       cart: [],
       wishlist: [],
-      address: [],
+      address: []
     };
     const createdUser = schema.users.create(newUser);
+    // eslint-disable-next-line no-undef
     const encodedToken = sign({ _id, email }, process.env.REACT_APP_JWT_SECRET);
     return new Response(201, {}, { createdUser, encodedToken });
   } catch (error) {
@@ -47,7 +48,7 @@ export const signupHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }
@@ -67,14 +68,12 @@ export const loginHandler = function (schema, request) {
       return new Response(
         404,
         {},
-        { errors: ["The email you entered is not Registered. Not Found error"] }
+        { errors: ['The email you entered is not Registered. Not Found error'] }
       );
     }
     if (password === foundUser.password) {
-      const encodedToken = sign(
-        { _id: foundUser._id, email },
-        process.env.REACT_APP_JWT_SECRET
-      );
+      // eslint-disable-next-line no-undef
+      const encodedToken = sign({ _id: foundUser._id, email }, process.env.REACT_APP_JWT_SECRET);
       foundUser.password = undefined;
       return new Response(200, {}, { foundUser, encodedToken });
     }
@@ -82,9 +81,7 @@ export const loginHandler = function (schema, request) {
       401,
       {},
       {
-        errors: [
-          "The credentials you entered are invalid. Unauthorized access error.",
-        ],
+        errors: ['The credentials you entered are invalid. Unauthorized access error.']
       }
     );
   } catch (error) {
@@ -92,7 +89,7 @@ export const loginHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }

@@ -1,6 +1,6 @@
-import { Response } from "miragejs";
-import { formatDate, requiresAuth } from "../utils/authUtils";
-import { v4 as uuid } from "uuid";
+import { Response } from 'miragejs';
+import { formatDate, requiresAuth } from '../utils/authUtils';
+import { v4 as uuid } from 'uuid';
 /**
  * All the routes related to Address are present here.
  * These are private routes.
@@ -19,7 +19,7 @@ export const getAllAddressesHandler = function (schema, request) {
       404,
       {},
       {
-        errors: ["The email you entered is not Registered. Not Found error"],
+        errors: ['The email you entered is not Registered. Not Found error']
       }
     );
   }
@@ -41,18 +41,18 @@ export const addNewAddressHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
+          errors: ['The email you entered is not Registered. Not Found error']
         }
       );
     }
     const userAddresses = schema.users.findBy({ _id: userId }).address;
     const { address } = JSON.parse(request.requestBody);
-   
+
     userAddresses.push({
       address,
       createdAt: formatDate(),
       updatedAt: formatDate(),
-      _id: uuid(),
+      _id: uuid()
     });
     this.db.users.update({ _id: userId }, { address: userAddresses });
     return new Response(201, {}, { address: userAddresses });
@@ -61,7 +61,7 @@ export const addNewAddressHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }
@@ -81,7 +81,7 @@ export const removeAddressHandler = function (schema, request) {
         404,
         {},
         {
-          errors: ["The email you entered is not Registered. Not Found error"],
+          errors: ['The email you entered is not Registered. Not Found error']
         }
       );
     }
@@ -95,7 +95,7 @@ export const removeAddressHandler = function (schema, request) {
       500,
       {},
       {
-        error,
+        error
       }
     );
   }
