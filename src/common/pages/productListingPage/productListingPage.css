@@ -28,3 +28,25 @@
 .og-price {
   text-decoration: line-through;
 }
+
+.pagination-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin: 1rem auto;
+  width: 12rem;
+  list-style: none;
+}
+
+.pagination-buttons a {
+  padding: 6px 12px;
+  margin: 1rem;
+  cursor: pointer;
+  border: 1px solid var(--primary-color);
+  color: var(--primary-color);
+  border-radius: 5px;
+}
+
+.pagination-active-btn a {
+  color: var(--text-color);
+  background-color: var(--primary-color);
+}
