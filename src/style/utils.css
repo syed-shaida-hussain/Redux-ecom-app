@@ -25,6 +25,10 @@ body {
   justify-content: center;
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
+
 .ml1 {
   margin-left: 1rem;
 }
@@ -33,16 +37,32 @@ body {
   margin-right: 1rem;
 }
 
+.mr-half {
+  margin-right: 0.3rem;
+}
+
 .mt1 {
   margin-top: 1rem;
+}
+
+.mt-min {
+  margin-top: 4px;
 }
 
 .mb1 {
   margin-bottom: 1rem;
 }
 
+.mb-min {
+  margin-bottom: 4px;
+}
+
 .mt-half {
   margin-top: 0.5rem;
+}
+
+.pb1 {
+  padding-bottom: 1rem;
 }
 
 .icon:hover {
@@ -52,4 +72,12 @@ body {
 
 .pr-clr {
   color: var(--primary-color);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.bold {
+  font-weight: bold;
 }

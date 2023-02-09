@@ -1,0 +1,30 @@
+.product-container {
+  width: 18.4rem;
+  margin: 10px;
+  box-shadow: 1px 1px 5px 1px var(--primary-color);
+  border-radius: 5px;
+}
+
+.product-container:hover {
+  cursor: pointer;
+}
+
+.product-img {
+  width: 18.4rem;
+  height: 18rem;
+  border-radius: 5px;
+  position: relative;
+}
+
+.chip {
+  position: absolute;
+  z-index: 2;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  padding: 0.3rem 0.5rem;
+  border-bottom-right-radius: 1rem;
+}
+
+.og-price {
+  text-decoration: line-through;
+}

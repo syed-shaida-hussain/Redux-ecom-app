@@ -6,8 +6,10 @@ import BgImage from '../../../assets/ecom-cover.jpg';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import { useNavigate } from 'react-router';
 
 const LandingPage = () => {
+  const navigate = useNavigate();
   return (
     <div>
       <Header />
@@ -17,7 +19,9 @@ const LandingPage = () => {
           <div>Redefined Performance</div>
           <div>Clothing and Accessiories.</div>
           <div className="explore-btn">
-            <Button variant="contained">Explore products</Button>
+            <Button variant="contained" onClick={() => navigate('/products')}>
+              Explore products
+            </Button>
           </div>
         </div>
       </div>
