@@ -1,8 +1,8 @@
 import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import { Button, TextField } from '@mui/material';
 import Logo from '../../assets/logo.svg';
+import { Button, TextField } from '@mui/material';
 import { NavLink } from 'react-router-dom';
 
 const Header = () => {
@@ -15,9 +15,7 @@ const Header = () => {
           className={({ isActive }) => (isActive ? 'sidebar-link-active link' : ' link ')}>
           <Button variant="text">Home</Button>
         </NavLink>
-        <NavLink
-          to="/products"
-          className={({ isActive }) => (isActive ? 'sidebar-link-active link' : ' link ')}>
+        <NavLink to="/products" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <Button variant="text">Products</Button>
         </NavLink>
       </div>
@@ -30,7 +28,9 @@ const Header = () => {
       <ul className="flex-r sub-nav sp-bw">
         <LocalMallIcon className="icon" />
         <FavoriteIcon className="icon" />
-        <AccountBoxIcon className="icon" />
+        <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
+          <AccountBoxIcon className="icon" />
+        </NavLink>
       </ul>
     </nav>
   );

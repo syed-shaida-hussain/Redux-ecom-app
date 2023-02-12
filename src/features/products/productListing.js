@@ -6,9 +6,9 @@ import Rating from '@mui/material/Rating';
 import ReactPaginate from 'react-paginate';
 
 const ProductListing = () => {
+  const [pageNumber, setPageNumber] = useState(0);
   const dispatch = useDispatch();
   const { products } = useSelector((store) => store.products);
-  const [pageNumber, setPageNumber] = useState(0);
   const productsPerPage = 8;
   const usersVisited = pageNumber * productsPerPage;
   const pageCount = Math.ceil(products.length / productsPerPage);

@@ -281,5 +281,61 @@ export const products = [
     fastDelivery: false,
     rating: 1,
     quantity: 1
+  },
+  {
+    _id: uuid(),
+    brand: 'Nike',
+    name: 'Men premium trendy Jacket',
+    originalPrice: '2000',
+    discountedPrice: '1500',
+    src: { url: Img1, alt: "Men's jacket" },
+    categoryMen: true,
+    categoryWomen: false,
+    cod: true,
+    fastDelivery: true,
+    rating: 1,
+    quantity: 1
+  },
+  {
+    _id: uuid(),
+    brand: 'Sobo',
+    name: 'Men premium sports TShirt',
+    originalPrice: '1500',
+    discountedPrice: '1000',
+    src: { url: Img1, alt: "Men's Tshirt" },
+    categoryMen: true,
+    categoryWomen: false,
+    cod: true,
+    fastDelivery: true,
+    rating: 5,
+    quantity: 1
+  },
+  {
+    _id: uuid(),
+    brand: 'Nike',
+    name: 'Men winter cool shoes',
+    originalPrice: '3000',
+    discountedPrice: '2500',
+    src: { url: Img1, alt: 'sports shoes' },
+    categoryMen: true,
+    categoryWomen: false,
+    cod: true,
+    fastDelivery: false,
+    rating: 3,
+    quantity: 1
+  },
+  {
+    _id: uuid(),
+    brand: 'Nike',
+    name: 'Women premium Tshirt',
+    originalPrice: '3000',
+    discountedPrice: '2800',
+    src: { url: Img1, alt: 'Silk saree' },
+    categoryMen: false,
+    categoryWomen: true,
+    cod: true,
+    fastDelivery: false,
+    rating: 4,
+    quantity: 1
   }
 ];
