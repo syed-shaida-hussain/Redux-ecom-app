@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { SignupPage } from './common/pages/Authentication/signupPage';
 import { LandingPage } from './common/pages/landingpage/landingPage';
 import { ProductListingPage } from './common/pages/productListingPage/productListingPage';
+import { SingleProductPage } from './common/pages/singleProductPage/singleProductPage';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/home" element={<LandingPage />} />
         <Route path="/products" element={<ProductListingPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path={`products/:productId`} element={<SingleProductPage />} />
       </Routes>
     </div>
   );

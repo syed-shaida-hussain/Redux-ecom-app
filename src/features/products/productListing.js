@@ -1,30 +1,42 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchProducts } from './productSlice';
+import { fetchProducts, fetchSingleProduct } from './productSlice';
 import '../../style/utils.css';
 import Rating from '@mui/material/Rating';
 import ReactPaginate from 'react-paginate';
+import { useNavigate } from 'react-router';
 
 const ProductListing = () => {
   const [pageNumber, setPageNumber] = useState(0);
   const dispatch = useDispatch();
-  const { products } = useSelector((store) => store.products);
+  const navigate = useNavigate();
+  const { status, products } = useSelector((store) => store.products);
   const productsPerPage = 8;
   const usersVisited = pageNumber * productsPerPage;
   const pageCount = Math.ceil(products.length / productsPerPage);
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    if (status === 'idle') {
+      dispatch(fetchProducts());
+    }
   }, [dispatch]);
 
   const changePageHandler = ({ selected }) => {
     setPageNumber(selected);
   };
 
+  const getSingleProduct = (product) => {
+    dispatch(fetchSingleProduct(product));
+    navigate(`/products/${product._id}`);
+  };
+
   const displayProducts = products
     .slice(usersVisited, usersVisited + productsPerPage)
     .map((product) => (
-      <div key={product._id} className="product-container flex-c pb1">
+      <div
+        key={product._id}
+        className="product-container flex-c pb1"
+        onClick={() => getSingleProduct(product)}>
         {product.fastDelivery && <span className="chip mt1 ">Fast Delivery</span>}
         <img className="product-img" src={product.src.url} alt={product.src.alt} />
         <div className="ml1">
