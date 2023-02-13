@@ -4,15 +4,18 @@ import { useDispatch } from 'react-redux';
 import { registerNewUser } from './authSlice';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const initialUserData = { firstName: '', lastName: '', email: '', password: '' };
   const [user, setUser] = useState(initialUserData);
   const signupSubmitHandler = () => {
     try {
       dispatch(registerNewUser(user));
       setUser(initialUserData);
+      navigate('/products');
     } catch (e) {
       console.error(e);
     }
@@ -27,7 +30,7 @@ const Signup = () => {
           signupSubmitHandler();
         }}>
         <TextField
-          required
+          // required
           type="text"
           value={user.firstName}
           id="standard-basic"
@@ -36,7 +39,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
         />
         <TextField
-          required
+          // required
           type="text"
           value={user.lastName}
           id="standard-basic1"
@@ -45,7 +48,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
         />
         <TextField
-          required
+          // required
           type="email"
           value={user.email}
           id="standard-basic2"
@@ -54,7 +57,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <TextField
-          required
+          // required
           type="password"
           value={user.password}
           id="standard-basic3"

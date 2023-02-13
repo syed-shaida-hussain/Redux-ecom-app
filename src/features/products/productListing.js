@@ -11,6 +11,7 @@ const ProductListing = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { status, products } = useSelector((store) => store.products);
+
   const productsPerPage = 8;
   const usersVisited = pageNumber * productsPerPage;
   const pageCount = Math.ceil(products.length / productsPerPage);
@@ -53,15 +54,21 @@ const ProductListing = () => {
 
   return (
     <div>
-      <div className="flex-r wrap"> {displayProducts}</div>
-      <ReactPaginate
-        previousLabel="Prev"
-        nextLabel="Next"
-        pageCount={pageCount}
-        onPageChange={changePageHandler}
-        containerClassName={'pagination-buttons'}
-        activeClassName={'pagination-active-btn'}
-      />
+      {status === 'loading' ? (
+        <div className="centered">Loading....</div>
+      ) : (
+        <div>
+          <div className="flex-r wrap"> {displayProducts}</div>
+          <ReactPaginate
+            previousLabel="Prev"
+            nextLabel="Next"
+            pageCount={pageCount}
+            onPageChange={changePageHandler}
+            containerClassName={'pagination-buttons'}
+            activeClassName={'pagination-active-btn'}
+          />
+        </div>
+      )}
     </div>
   );
 };

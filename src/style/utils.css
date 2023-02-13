@@ -99,3 +99,7 @@ body {
 .u-case {
   text-transform: uppercase;
 }
+
+.centered {
+  text-align: center;
+}

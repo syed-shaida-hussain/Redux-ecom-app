@@ -1,15 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
+const encodedToken = localStorage.getItem('ENCODED_TOKEN');
+
 const initialState = {
   status: 'idle',
   products: [],
   singleProduct: {},
   cartItems: [],
-  totalCartPrice: 0
+  wishlistItems: []
 };
-
-const encodedToken = localStorage.getItem('ENCODED_TOKEN');
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const res = await fetch('/api/products');
@@ -33,18 +33,25 @@ export const fetchCartItems = createAsyncThunk('/products/fetchCartItems', async
   return data;
 });
 
+export const fetchWishlistItems = createAsyncThunk('/products/fetchWishlistItems', async () => {
+  const res = await fetch('/api/user/wishlist', { headers: { authorization: encodedToken } });
+  const data = await res.json();
+  return data;
+});
+
 const productSlice = createSlice({
   name: 'products',
   initialState,
   reducers: {
     addToCartButtonClicked: (state, action) => {
-      axios.post(
-        '/api/user/cart',
-        { product: action.payload },
-        { headers: { authorization: encodedToken } }
-      );
+      axios.post('/api/user/cart', action.payload, { headers: { authorization: encodedToken } });
       state.cartItems = [...state.cartItems, action.payload];
-      state.totalCartPrice += action.payload.discountedPrice;
+    },
+    addToWishlistButtonClicked: (state, action) => {
+      axios.post('/api/user/wishlist', action.payload, {
+        headers: { authorization: encodedToken }
+      });
+      state.wishlistItems = [...state.wishlistItems, action.payload];
     }
   },
   extraReducers: {
@@ -68,10 +75,17 @@ const productSlice = createSlice({
     [fetchCartItems.fulfilled]: (state, action) => {
       state.cartItems = action.payload.cart;
       state.status = 'fulfilled';
+    },
+    [fetchWishlistItems.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [fetchWishlistItems.fulfilled]: (state, action) => {
+      state.wishlistItems = action.payload.wishlist;
+      state.status = 'fulfilled';
     }
   }
 });
 
-export const { addToCartButtonClicked } = productSlice.actions;
+export const { addToCartButtonClicked, addToWishlistButtonClicked } = productSlice.actions;
 
 export default productSlice.reducer;

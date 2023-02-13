@@ -1,28 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 const initialState = {
-  token: null
+  status: 'idle',
+  encodedToken: '',
+  authStatus: localStorage.getItem('ENCODED_TOKEN') ? true : false
 };
-// const token = localStorage.getItem('ENCODED_TOKEN');
+
+export const registerNewUser = createAsyncThunk('/users/newUser', async (action) => {
+  const user = action;
+  const { data } = await axios.post('/api/auth/signup', {
+    email: user.email,
+    password: user.password,
+    firstName: user.firstName,
+    lastName: user.lastName
+  });
+  return data;
+});
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {
-    registerNewUser: async (state, action) => {
-      const user = action.payload;
-      const { data } = await axios.post('/api/auth/signup', {
-        email: user.email,
-        password: user.password,
-        firstName: user.firstName,
-        lastName: user.lastName
-      });
-      state.token = data.encodedToken;
-      console.log(data);
-      localStorage.setItem('ENCODED_TOKEN', data.encodedToken);
+  reducers: {},
+  extraReducers: {
+    [registerNewUser.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [registerNewUser.fulfilled]: (state, action) => {
+      state.encodedToken = action.payload.encodedToken;
+      state.status = 'fulfilled';
     }
-  },
-  extraReducers: {}
+  }
 });
-export const { registerNewUser } = authSlice.actions;
 export default authSlice.reducer;
