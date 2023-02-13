@@ -3,7 +3,7 @@ import axios from 'axios';
 const initialState = {
   status: 'idle',
   encodedToken: '',
-  authStatus: localStorage.getItem('ENCODED_TOKEN') ? true : false
+  authStatus: false
 };
 
 export const registerNewUser = createAsyncThunk('/users/newUser', async (action) => {
@@ -27,6 +27,7 @@ const authSlice = createSlice({
     },
     [registerNewUser.fulfilled]: (state, action) => {
       state.encodedToken = action.payload.encodedToken;
+      state.authStatus = true;
       state.status = 'fulfilled';
     }
   }

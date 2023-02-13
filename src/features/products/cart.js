@@ -1,0 +1,86 @@
+import { useEffect } from 'react';
+import '../../style/utils.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteCartButtonClicked, fetchCartItems } from './productSlice';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
+
+const Cart = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { status, cartItems, wishlistItems } = useSelector((store) => store.products);
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchCartItems());
+    }
+  }, [dispatch]);
+  return (
+    <div>
+      {status === 'loading' ? (
+        <div className="centered">Loading...</div>
+      ) : (
+        <main>
+          {cartItems.length > 0 ? (
+            <section>
+              {cartItems.map((product) => (
+                <div key={product._id} className="flex-r single-product-container p-min ml1 mt1 ">
+                  <div>
+                    <img
+                      className="single-cart-img"
+                      src={product?.src?.url}
+                      alt={product?.url?.alt}
+                    />
+                    <div className="mt1 ml1">
+                      <Button variant="outlined">-</Button>
+                      <span className="ml1 mr1 pr-clr">{product.quantity}</span>
+                      <Button variant="outlined">+</Button>
+                    </div>
+                  </div>
+
+                  <div className="ml1 mr1 mb1">
+                    <h3 className="mb-min mt-min">{product?.brand}</h3>
+                    <div className="bold mb-min">{product?.name}</div>
+                    <div className="mb-min">
+                      <span className="mr-half og-price">Rs. {product?.originalPrice}</span>
+                      <span className="bold">{product?.discountedPrice}</span>
+                    </div>
+                    <div className="bold u-case mb-min"> Category : {product?.category}</div>
+                    <div className="bold mb-min">{product?.cod && 'COD Available'}</div>
+                    <div className="bold ">
+                      {product?.fastDelivery && 'Fast Delivery Available'}
+                    </div>
+                    <div className=" u-case mb1">15 day replacement policy available.</div>
+                    <span className="mr1">
+                      <Button
+                        variant="contained"
+                        onClick={() => dispatch(deleteCartButtonClicked(product))}>
+                        Remove from cart
+                      </Button>
+                    </span>
+                    {wishlistItems?.find((item) => item._id === product._id) ? (
+                      <Button variant="outlined" onClick={() => console.log('wishlist')}>
+                        Go to Wishlist
+                      </Button>
+                    ) : (
+                      <Button variant="outlined">Add to Wishlist</Button>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </section>
+          ) : (
+            <div className="centered mt1">
+              <h3 className="mb-min">Your cart is feeling lonely.</h3>
+              <Button variant="outlined" onClick={() => navigate('/products')}>
+                {' '}
+                Explore Products
+              </Button>
+            </div>
+          )}
+        </main>
+      )}
+    </div>
+  );
+};
+
+export { Cart };

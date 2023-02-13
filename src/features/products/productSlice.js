@@ -44,14 +44,27 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     addToCartButtonClicked: (state, action) => {
-      axios.post('/api/user/cart', action.payload, { headers: { authorization: encodedToken } });
+      axios.post(
+        '/api/user/cart',
+        { product: action.payload },
+        { headers: { authorization: encodedToken } }
+      );
       state.cartItems = [...state.cartItems, action.payload];
     },
     addToWishlistButtonClicked: (state, action) => {
-      axios.post('/api/user/wishlist', action.payload, {
-        headers: { authorization: encodedToken }
-      });
+      axios.post(
+        '/api/user/wishlist',
+        { product: action.payload },
+        {
+          headers: { authorization: encodedToken }
+        }
+      );
       state.wishlistItems = [...state.wishlistItems, action.payload];
+    },
+    deleteCartButtonClicked: (state, action) => {
+      const productId = action.payload._id;
+      axios.delete(`/api/user/cart/${productId}`, { headers: { authorization: encodedToken } });
+      state.cartItems = state.cartItems.filter((item) => item._id !== productId);
     }
   },
   extraReducers: {
@@ -86,6 +99,7 @@ const productSlice = createSlice({
   }
 });
 
-export const { addToCartButtonClicked, addToWishlistButtonClicked } = productSlice.actions;
+export const { addToCartButtonClicked, addToWishlistButtonClicked, deleteCartButtonClicked } =
+  productSlice.actions;
 
 export default productSlice.reducer;

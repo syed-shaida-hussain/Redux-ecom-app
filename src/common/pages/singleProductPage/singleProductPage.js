@@ -15,13 +15,13 @@ const SingleProductPage = () => {
   const { singleProduct, cartItems, wishlistItems, status } = useSelector(
     (store) => store.products
   );
-  const { encodedToken } = useSelector((store) => store.auth);
+  const { authStatus } = useSelector((store) => store.auth);
   const addToCartHandler = () => {
-    encodedToken ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/signup');
+    authStatus ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/signup');
   };
 
   const addToWishlistHandler = () => {
-    encodedToken ? dispatch(addToWishlistButtonClicked(singleProduct)) : navigate('/signup');
+    authStatus ? dispatch(addToWishlistButtonClicked(singleProduct)) : navigate('/signup');
   };
 
   return (
@@ -49,7 +49,7 @@ const SingleProductPage = () => {
             <div className=" u-case mb1">15 day replacement policy available.</div>
             <span className="mr1">
               {cartItems?.find((product) => product._id === singleProduct._id) ? (
-                <Button variant="contained" onClick={() => console.log('cart')}>
+                <Button variant="contained" onClick={() => navigate('/cart')}>
                   Go to cart
                 </Button>
               ) : (
@@ -59,7 +59,7 @@ const SingleProductPage = () => {
               )}{' '}
             </span>
             {wishlistItems?.find((product) => product._id === singleProduct._id) ? (
-              <Button variant="outlined" onClick={() => console.log('wishlist')}>
+              <Button variant="outlined" onClick={() => navigate('/wishlist')}>
                 Go to Wishlist
               </Button>
             ) : (

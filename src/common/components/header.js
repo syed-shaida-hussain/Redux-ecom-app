@@ -26,7 +26,9 @@ const Header = () => {
         variant="outlined"
       />
       <ul className="flex-r sub-nav sp-bw">
-        <LocalMallIcon className="icon" />
+        <NavLink to="/cart" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
+          <LocalMallIcon className="icon" />
+        </NavLink>
         <FavoriteIcon className="icon" />
         <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <AccountBoxIcon className="icon" />

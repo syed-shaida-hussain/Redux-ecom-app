@@ -4,18 +4,24 @@ import { useDispatch } from 'react-redux';
 import { registerNewUser } from './authSlice';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const initialUserData = { firstName: '', lastName: '', email: '', password: '' };
   const [user, setUser] = useState(initialUserData);
   const signupSubmitHandler = () => {
     try {
+      if (location.state != null) {
+        console.log(location);
+        navigate(location.state.from.pathname);
+      } else {
+        navigate('/products');
+      }
       dispatch(registerNewUser(user));
       setUser(initialUserData);
-      navigate('/products');
     } catch (e) {
       console.error(e);
     }
