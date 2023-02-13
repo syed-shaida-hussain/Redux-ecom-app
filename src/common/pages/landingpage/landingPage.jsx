@@ -1,7 +1,6 @@
 import './landingPage.css';
 import '../../../style/utils.css';
 import { Button } from '@mui/material';
-import { Header } from '../../components/header';
 import BgImage from '../../../assets/ecom-cover.jpg';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TwitterIcon from '@mui/icons-material/Twitter';
@@ -12,7 +11,6 @@ const LandingPage = () => {
   const navigate = useNavigate();
   return (
     <div>
-      <Header />
       <div className="flex-c ctr-vert ctr-hor">
         <img className="bg-img" style={{ backgroundImage: `url(${BgImage})` }} />
         <div className="overlay-text">

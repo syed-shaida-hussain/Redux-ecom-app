@@ -49,6 +49,10 @@ body {
   margin-top: 4px;
 }
 
+.mt2 {
+  margin-top: 1.6rem;
+}
+
 .mb1 {
   margin-bottom: 1rem;
 }
@@ -93,7 +97,7 @@ body {
 }
 
 .bold {
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .u-case {

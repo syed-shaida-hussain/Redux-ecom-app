@@ -20,7 +20,7 @@ const ProductListing = () => {
     if (status === 'idle') {
       dispatch(fetchProducts());
     }
-  }, [dispatch]);
+  }, [dispatch, status]);
 
   const changePageHandler = ({ selected }) => {
     setPageNumber(selected);
@@ -55,7 +55,7 @@ const ProductListing = () => {
   return (
     <div>
       {status === 'loading' ? (
-        <div className="centered">Loading....</div>
+        <div className="centered mt1">Loading....</div>
       ) : (
         <div>
           <div className="flex-r wrap"> {displayProducts}</div>

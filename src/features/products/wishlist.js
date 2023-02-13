@@ -2,37 +2,31 @@ import { useEffect } from 'react';
 import '../../style/utils.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  addToWishlistButtonClicked,
-  decrementCartQuantity,
-  deleteCartButtonClicked,
-  fetchCartItems,
-  incrementCartQuantity
+  addToCartButtonClicked,
+  deleteWishlistButtonClicked,
+  fetchWishlistItems
 } from './productSlice';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-const Cart = () => {
+const Wishlist = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { status, cartItems, wishlistItems, totalCartPrice } = useSelector(
-    (store) => store.products
-  );
-  console.log(totalCartPrice);
-
+  const { status, cartItems, wishlistItems } = useSelector((store) => store.products);
   useEffect(() => {
     if (status === 'idle') {
-      dispatch(fetchCartItems());
+      dispatch(fetchWishlistItems());
     }
-  }, [dispatch, status]);
+  }, [dispatch]);
   return (
     <div>
       {status === 'loading' ? (
         <div className="centered mt1">Loading...</div>
       ) : (
         <main>
-          {cartItems.length > 0 ? (
+          {wishlistItems.length > 0 ? (
             <section>
-              {cartItems.map((product) => (
+              {wishlistItems.map((product) => (
                 <div key={product._id} className="flex-r single-product-container p-min ml1 mt1 ">
                   <div>
                     <img
@@ -40,25 +34,7 @@ const Cart = () => {
                       src={product?.src?.url}
                       alt={product?.url?.alt}
                     />
-                    <div className="mt1  mb1">
-                      <Button
-                        variant="outlined"
-                        onClick={() =>
-                          product.quantity <= 1
-                            ? dispatch(deleteCartButtonClicked(product))
-                            : dispatch(decrementCartQuantity(product))
-                        }>
-                        -
-                      </Button>
-                      <span className="ml1 mr1 pr-clr">{product.quantity}</span>
-                      <Button
-                        variant="outlined"
-                        onClick={() => dispatch(incrementCartQuantity(product))}>
-                        +
-                      </Button>
-                    </div>
                   </div>
-
                   <div className="ml1 mr1 mb1">
                     <h3 className="mb-min mt-min">{product?.brand}</h3>
                     <div className="bold mb-min">{product?.name}</div>
@@ -67,23 +43,27 @@ const Cart = () => {
                       <span className="bold">{product?.discountedPrice}</span>
                     </div>
                     <div className="bold u-case mb-min"> Category : {product?.category}</div>
-                    <div className=" mb1">15 days replacement policy available.</div>
+                    <div className="bold mb-min">{product?.cod && 'COD Available'}</div>
+                    <div className="bold ">
+                      {product?.fastDelivery && 'Fast Delivery Available'}
+                    </div>
+                    <div className=" mb1">15 day replacement policy available.</div>
                     <span className="mr1">
                       <Button
                         variant="contained"
-                        onClick={() => dispatch(deleteCartButtonClicked(product))}>
-                        Remove from cart
+                        onClick={() => dispatch(deleteWishlistButtonClicked(product))}>
+                        Remove from Wishlist
                       </Button>
                     </span>
-                    {wishlistItems?.find((item) => item._id === product._id) ? (
-                      <Button variant="outlined" onClick={() => navigate('/wishlist')}>
-                        Go to Wishlist
+                    {cartItems?.find((item) => item._id === product._id) ? (
+                      <Button variant="outlined" onClick={() => navigate('/cart')}>
+                        Go to Cart
                       </Button>
                     ) : (
                       <Button
                         variant="outlined"
-                        onClick={() => dispatch(addToWishlistButtonClicked(product))}>
-                        Add to Wishlist
+                        onClick={() => dispatch(addToCartButtonClicked(product))}>
+                        Add to Cart
                       </Button>
                     )}
                   </div>
@@ -92,7 +72,7 @@ const Cart = () => {
             </section>
           ) : (
             <div className="centered mt1">
-              <h2 className="mb-min pr-clr bold">Your cart is feeling lonely.</h2>
+              <h2 className="mb-min pr-clr bold">Your Wishlist is feeling lonely.</h2>
               <Button variant="outlined" onClick={() => navigate('/products')}>
                 Explore Products
               </Button>
@@ -104,4 +84,4 @@ const Cart = () => {
   );
 };
 
-export { Cart };
+export { Wishlist };

@@ -8,6 +8,7 @@ const initialState = {
   products: [],
   singleProduct: {},
   cartItems: [],
+  totalCartPrice: 0,
   wishlistItems: []
 };
 
@@ -50,6 +51,7 @@ const productSlice = createSlice({
         { headers: { authorization: encodedToken } }
       );
       state.cartItems = [...state.cartItems, action.payload];
+      state.totalCartPrice += Number(action.payload.discountedPrice);
     },
     addToWishlistButtonClicked: (state, action) => {
       axios.post(
@@ -64,7 +66,47 @@ const productSlice = createSlice({
     deleteCartButtonClicked: (state, action) => {
       const productId = action.payload._id;
       axios.delete(`/api/user/cart/${productId}`, { headers: { authorization: encodedToken } });
+      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+      const currentProductQuantity = state.cartItems[productIndex].quantity;
       state.cartItems = state.cartItems.filter((item) => item._id !== productId);
+      state.totalCartPrice =
+        state.totalCartPrice -
+        Number(action.payload.discountedPrice) * Number(currentProductQuantity);
+    },
+    deleteWishlistButtonClicked: (state, action) => {
+      const productId = action.payload._id;
+      axios.delete(`/api/user/wishlist/${productId}`, { headers: { authorization: encodedToken } });
+      state.wishlistItems = state.wishlistItems.filter((item) => item._id !== productId);
+    },
+    incrementCartQuantity: (state, action) => {
+      const productId = action.payload._id;
+      axios.post(
+        `/api/user/cart/${productId}`,
+        {
+          action: {
+            type: 'increment'
+          }
+        },
+        { headers: { authorization: encodedToken } }
+      );
+      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+      state.cartItems[productIndex].quantity += 1;
+      state.totalCartPrice += Number(action.payload.discountedPrice);
+    },
+    decrementCartQuantity: (state, action) => {
+      const productId = action.payload._id;
+      axios.post(
+        `/api/user/cart/${productId}`,
+        {
+          action: {
+            type: 'decrement'
+          }
+        },
+        { headers: { authorization: encodedToken } }
+      );
+      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+      state.cartItems[productIndex].quantity -= 1;
+      state.totalCartPrice -= Number(action.payload.discountedPrice);
     }
   },
   extraReducers: {
@@ -99,7 +141,13 @@ const productSlice = createSlice({
   }
 });
 
-export const { addToCartButtonClicked, addToWishlistButtonClicked, deleteCartButtonClicked } =
-  productSlice.actions;
+export const {
+  addToCartButtonClicked,
+  addToWishlistButtonClicked,
+  deleteCartButtonClicked,
+  deleteWishlistButtonClicked,
+  incrementCartQuantity,
+  decrementCartQuantity
+} = productSlice.actions;
 
 export default productSlice.reducer;

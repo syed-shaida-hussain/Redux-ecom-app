@@ -2,10 +2,12 @@ import LocalMallIcon from '@mui/icons-material/LocalMall';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import Logo from '../../assets/logo.svg';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, Badge } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const { cartItems, wishlistItems } = useSelector((store) => store.products);
   return (
     <nav className="header-nav flex-r sp-bw ml1 mr1 mt-half ctr-vert">
       <div className="flex-r ctr-vert logo-container sp-bw">
@@ -25,11 +27,18 @@ const Header = () => {
         label="Search here...."
         variant="outlined"
       />
+
       <ul className="flex-r sub-nav sp-bw">
         <NavLink to="/cart" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
-          <LocalMallIcon className="icon" />
+          <Badge badgeContent={cartItems.length} color="success">
+            <LocalMallIcon className="icon" />
+          </Badge>
         </NavLink>
-        <FavoriteIcon className="icon" />
+        <NavLink to="/wishlist" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
+          <Badge badgeContent={wishlistItems.length} color="success">
+            <FavoriteIcon className="icon" />
+          </Badge>
+        </NavLink>
         <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <AccountBoxIcon className="icon" />
         </NavLink>

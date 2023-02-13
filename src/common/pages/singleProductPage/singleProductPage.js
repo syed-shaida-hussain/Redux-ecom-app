@@ -1,7 +1,6 @@
 import './singleProductPage.css';
 import '../../../style/utils.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Header } from '../../components/header';
 import { Button } from '@mui/material';
 import {
   addToCartButtonClicked,
@@ -26,7 +25,6 @@ const SingleProductPage = () => {
 
   return (
     <div>
-      <Header />
       {status === 'loading' ? (
         <div className="centered">Loading...</div>
       ) : (
