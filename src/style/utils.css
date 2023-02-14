@@ -17,6 +17,10 @@ body {
   justify-content: space-between;
 }
 
+.sp-ar {
+  justify-content: space-around;
+}
+
 .ctr-vert {
   align-items: center;
 }
@@ -106,4 +110,13 @@ body {
 
 .centered {
   text-align: center;
+}
+
+.ft-md > button {
+  font-size: 1.2rem;
+  padding: 0.5rem;
+}
+
+.ft-lg {
+  font-size: 1.2rem;
 }

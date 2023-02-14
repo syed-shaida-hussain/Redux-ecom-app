@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import '../../style/utils.css';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   addToWishlistButtonClicked,
@@ -14,10 +13,7 @@ import { useNavigate } from 'react-router-dom';
 const Cart = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { status, cartItems, wishlistItems, totalCartPrice } = useSelector(
-    (store) => store.products
-  );
-  console.log(totalCartPrice);
+  const { status, cartItems, wishlistItems } = useSelector((store) => store.products);
 
   useEffect(() => {
     if (status === 'idle') {
@@ -40,7 +36,7 @@ const Cart = () => {
                       src={product?.src?.url}
                       alt={product?.url?.alt}
                     />
-                    <div className="mt1  mb1">
+                    <div className="mt1 ft-md  mb1">
                       <Button
                         variant="outlined"
                         onClick={() =>
@@ -52,7 +48,7 @@ const Cart = () => {
                       </Button>
                       <span className="ml1 mr1 pr-clr">{product.quantity}</span>
                       <Button
-                        variant="outlined"
+                        variant="contained"
                         onClick={() => dispatch(incrementCartQuantity(product))}>
                         +
                       </Button>
