@@ -9,10 +9,11 @@ export const products = [
     originalPrice: '2000',
     discountedPrice: '1500',
     src: { url: Img1, alt: "Men's jacket" },
-    category: 'men',
+    gender: 'men',
     cod: true,
     fastDelivery: true,
     rating: 1,
+    category: 'formals',
     quantity: 1
   },
   {
@@ -22,10 +23,11 @@ export const products = [
     originalPrice: '1500',
     discountedPrice: '1000',
     src: { url: Img1, alt: "Men's Tshirt" },
-    category: 'men',
-    cod: true,
+    gender: 'men',
+    cod: false,
     fastDelivery: true,
     rating: 5,
+    category: 'casuals',
     quantity: 1
   },
   {
@@ -35,10 +37,11 @@ export const products = [
     originalPrice: '3000',
     discountedPrice: '2500',
     src: { url: Img1, alt: 'sports shoes' },
-    category: 'men',
+    gender: 'men',
     cod: true,
     fastDelivery: false,
     rating: 3,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -48,10 +51,11 @@ export const products = [
     originalPrice: '3000',
     discountedPrice: '2800',
     src: { url: Img1, alt: 'Silk saree' },
-    category: 'women',
+    gender: 'women',
     cod: true,
     fastDelivery: false,
     rating: 4,
+    category: 'casuals',
     quantity: 1
   },
   {
@@ -61,10 +65,11 @@ export const products = [
     originalPrice: '1000',
     discountedPrice: '700',
     src: { url: Img1, alt: 'Casual shoes' },
-    category: 'men',
+    gender: 'men',
     cod: true,
     fastDelivery: false,
     rating: 5,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -74,10 +79,11 @@ export const products = [
     originalPrice: '2000',
     discountedPrice: '1500',
     src: { url: Img1, alt: 'Formal shoes' },
-    category: 'women',
+    gender: 'women',
     cod: true,
     fastDelivery: false,
     rating: 4,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -87,10 +93,11 @@ export const products = [
     originalPrice: '4000',
     discountedPrice: '3500',
     src: { url: Img1, alt: 'Formal jacket' },
-    category: 'men',
+    gender: 'men',
     cod: false,
     fastDelivery: true,
     rating: 2,
+    category: 'formals',
     quantity: 1
   },
   {
@@ -100,10 +107,11 @@ export const products = [
     originalPrice: '1000',
     discountedPrice: '500',
     src: { url: Img1, alt: 'Climbing shoes' },
-    category: 'men',
+    gender: 'men',
     cod: false,
     fastDelivery: true,
     rating: 3,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -113,10 +121,11 @@ export const products = [
     originalPrice: '1000',
     discountedPrice: '500',
     src: { url: Img1, alt: 'Women party shoes' },
-    category: 'women',
+    gender: 'women',
     cod: true,
     fastDelivery: true,
     rating: 4,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -126,10 +135,11 @@ export const products = [
     originalPrice: '3000',
     discountedPrice: '2500',
     src: { url: Img1, alt: 'Formal pants' },
-    category: 'men',
+    gender: 'men',
     cod: false,
     fastDelivery: false,
     rating: 5,
+    category: 'formals',
     quantity: 1
   },
   {
@@ -139,9 +149,10 @@ export const products = [
     originalPrice: '3000',
     discountedPrice: '2000',
     src: { url: Img1, alt: 'Women jacket' },
-    category: 'women',
+    gender: 'women',
     cod: false,
     rating: 2,
+    category: 'partywear',
     fastDelivery: true,
     quantity: 1
   },
@@ -152,10 +163,11 @@ export const products = [
     originalPrice: '700',
     discountedPrice: '500',
     src: { url: Img1, alt: 'Round Tshirt' },
-    category: 'women',
+    gender: 'women',
     cod: false,
     fastDelivery: false,
     rating: 1,
+    category: 'casuals',
     quantity: 1
   },
   {
@@ -165,10 +177,11 @@ export const products = [
     originalPrice: '1000',
     discountedPrice: '700',
     src: { url: Img1, alt: 'Casual shoes' },
-    category: 'men',
+    gender: 'men',
     cod: true,
     fastDelivery: false,
     rating: 5,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -178,10 +191,11 @@ export const products = [
     originalPrice: '2000',
     discountedPrice: '1500',
     src: { url: Img1, alt: 'Formal shoes' },
-    category: 'women',
+    gender: 'women',
     cod: true,
     fastDelivery: false,
     rating: 4,
+    category: 'shoes',
     quantity: 1
   },
   {
@@ -191,10 +205,11 @@ export const products = [
     originalPrice: '4000',
     discountedPrice: '3500',
     src: { url: Img1, alt: 'Formal jacket' },
-    category: 'men',
+    gender: 'men',
     cod: false,
     fastDelivery: true,
     rating: 2,
+    category: 'formals',
     quantity: 1
   },
   {
@@ -204,10 +219,11 @@ export const products = [
     originalPrice: '1000',
     discountedPrice: '500',
     src: { url: Img1, alt: 'Climbing shoes' },
-    category: 'men',
+    gender: 'men',
     cod: false,
     fastDelivery: true,
     rating: 3,
+    category: 'shoes',
     quantity: 1
   }
 ];

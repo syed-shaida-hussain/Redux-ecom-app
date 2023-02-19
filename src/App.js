@@ -12,7 +12,7 @@ import { Header } from './common/components/header';
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/home" element={<LandingPage />} />

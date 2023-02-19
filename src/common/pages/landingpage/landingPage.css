@@ -38,7 +38,13 @@
 }
 
 .logo-container {
-  flex-basis: 16rem;
+  flex-basis: 18rem;
+}
+
+.category-img {
+  width: 15rem;
+  height: 13rem;
+  border-radius: 8px;
 }
 
 .footer {

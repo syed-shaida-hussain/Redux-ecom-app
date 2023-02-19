@@ -9,7 +9,8 @@ const initialState = {
   singleProduct: {},
   cartItems: [],
   totalCartPrice: 0,
-  wishlistItems: []
+  wishlistItems: [],
+  categories: []
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
@@ -25,6 +26,22 @@ export const fetchSingleProduct = createAsyncThunk(
     const res = await fetch(`/api/products/${productId}`);
     const data = await res.json();
     return data;
+  }
+);
+
+export const fetchCategories = createAsyncThunk('/products/categories', async () => {
+  const res = await fetch('/api/categories');
+  const data = await res.json();
+  return data;
+});
+
+export const fetchSingleCategory = createAsyncThunk(
+  '/products/categories/singleCategory',
+  async (action) => {
+    const categoryId = action;
+    const res = await fetch(`/api/categories/${categoryId}`);
+    const data = await res.json();
+    console.log(data);
   }
 );
 
@@ -136,6 +153,13 @@ const productSlice = createSlice({
     },
     [fetchWishlistItems.fulfilled]: (state, action) => {
       state.wishlistItems = action.payload.wishlist;
+      state.status = 'fulfilled';
+    },
+    [fetchCategories.pending]: (state) => {
+      state.status = 'loading';
+    },
+    [fetchCategories.fulfilled]: (state, action) => {
+      state.categories = action.payload.categories;
       state.status = 'fulfilled';
     }
   }

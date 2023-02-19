@@ -83,7 +83,7 @@ body {
 
 .icon:hover {
   cursor: pointer;
-  font-size: 1.6rem;
+  color: var(--primary-color);
 }
 
 .pr-clr {

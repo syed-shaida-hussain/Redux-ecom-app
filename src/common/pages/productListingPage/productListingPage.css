@@ -50,3 +50,7 @@
   color: var(--text-color);
   background-color: var(--primary-color);
 }
+
+.filters {
+  width: 33vw;
+}

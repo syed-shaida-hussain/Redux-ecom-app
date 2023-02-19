@@ -42,7 +42,7 @@ const Wishlist = () => {
                       <span className="mr-half og-price">Rs. {product?.originalPrice}</span>
                       <span className="bold">{product?.discountedPrice}</span>
                     </div>
-                    <div className="bold u-case mb-min"> Category : {product?.category}</div>
+                    <div className="bold u-case mb-min"> Gender : {product?.gender}</div>
                     <div className="bold mb-min">{product?.cod && 'COD Available'}</div>
                     <div className="bold ">
                       {product?.fastDelivery && 'Fast Delivery Available'}

@@ -12,7 +12,7 @@ const Header = () => {
   return (
     <nav className="header-nav flex-r sp-bw ml1 mr1 mt-half ctr-vert">
       <div className="flex-r ctr-vert logo-container sp-bw">
-        <img src={Logo} alt="logo" className="logo" />
+        <img src={Logo} alt="logo" className="logo ml1" />
         <NavLink
           to="/home"
           className={({ isActive }) => (isActive ? 'sidebar-link-active link' : ' link ')}>

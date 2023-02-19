@@ -62,7 +62,7 @@ const Cart = () => {
                       <span className="mr-half og-price">Rs. {product?.originalPrice}</span>
                       <span className="bold">{product?.discountedPrice}</span>
                     </div>
-                    <div className="bold u-case mb-min"> Category : {product?.category}</div>
+                    <div className="bold u-case mb-min"> Gender : {product?.gender}</div>
                     <div className=" mb1">15 days replacement policy available.</div>
                     <span className="mr1">
                       <Button

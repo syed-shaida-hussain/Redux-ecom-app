@@ -41,7 +41,7 @@ const SingleProductPage = () => {
               <span className="mr-half og-price">Rs. {singleProduct?.originalPrice}</span>
               <span className="bold">{singleProduct?.discountedPrice}</span>
             </div>
-            <div className="bold u-case mb-min"> Category : {singleProduct?.category}</div>
+            <div className="bold u-case mb-min"> Gender : {singleProduct?.gender}</div>
             <div className="bold mb-min">{singleProduct?.cod && 'COD Available'}</div>
             <div className="bold ">{singleProduct?.fastDelivery && 'Fast Delivery Available'}</div>
             <div className=" u-case mb1">15 day replacement policy available.</div>
