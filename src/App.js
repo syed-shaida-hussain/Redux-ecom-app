@@ -8,6 +8,7 @@ import { RequireAuth } from './common/components/requireAuth';
 import { CartPage } from './common/pages/cartPage/cartPage';
 import { WishlistPage } from './common/pages/wishlistPage/wishlistPage';
 import { Header } from './common/components/header';
+import { PageNotFound } from './common/components/notFound';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
         </Route>
+        <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </div>
   );

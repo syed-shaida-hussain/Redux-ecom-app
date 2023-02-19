@@ -15,6 +15,7 @@ const SingleProductPage = () => {
     (store) => store.products
   );
   const { authStatus } = useSelector((store) => store.auth);
+
   const addToCartHandler = () => {
     authStatus ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/signup');
   };

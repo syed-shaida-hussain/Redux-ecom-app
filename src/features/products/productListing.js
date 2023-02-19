@@ -4,6 +4,8 @@ import { fetchProducts, fetchSingleProduct } from './productSlice';
 import '../../style/utils.css';
 import Rating from '@mui/material/Rating';
 import { useNavigate } from 'react-router';
+import { getFilteredData } from '../../utils/filterData';
+import { getSortedData } from '../../utils/sortData';
 
 const ProductListing = () => {
   const dispatch = useDispatch();
@@ -13,64 +15,11 @@ const ProductListing = () => {
     (store) => store.filters
   );
 
-  function getSortedData(sortedList, sortBy) {
-    if (sortBy && sortBy === 'PRICE_HIGH_TO_LOW') {
-      return sortedList.slice().sort((a, b) => b['discountedPrice'] - a['discountedPrice']);
-    }
-    if (sortBy && sortBy === 'PRICE_LOW_TO_HIGH') {
-      return sortedList.slice().sort((a, b) => a['discountedPrice'] - b['discountedPrice']);
-    }
-    return sortedList;
-  }
-
-  function getFilteredData(filteredList, rateBy, categories) {
-    if (rateBy && rateBy === '4_STARS_AND_ABOVE') {
-      if (categories.length > 0) {
-        return filteredList
-          .filter(({ category }) => categories.includes(category))
-          .filter(({ rating }) => rating >= 4);
-      } else {
-        return filteredList.filter(({ rating }) => rating >= 4);
-      }
-    }
-    if (rateBy && rateBy === '3_STARS_AND_ABOVE') {
-      if (categories.length > 0) {
-        return filteredList
-          .filter(({ category }) => categories.includes(category))
-          .filter(({ rating }) => rating >= 3);
-      } else {
-        return filteredList.filter(({ rating }) => rating >= 3);
-      }
-    }
-    if (rateBy && rateBy === '2_STARS_AND_ABOVE') {
-      if (categories.length > 0) {
-        return filteredList
-          .filter(({ category }) => categories.includes(category))
-          .filter(({ rating }) => rating >= 2);
-      } else {
-        return filteredList.filter(({ rating }) => rating >= 2);
-      }
-    }
-    if (rateBy && rateBy === '1_STARS_AND_ABOVE') {
-      if (categories.length > 0) {
-        return filteredList
-          .filter(({ category }) => categories.includes(category))
-          .filter(({ rating }) => rating >= 1);
-      } else {
-        return filteredList.filter(({ rating }) => rating >= 1);
-      }
-    }
-    if (categories.length > 0) {
-      return filteredList.filter(({ category }) => categories.includes(category));
-    }
-    return filteredList;
-  }
-
-  function getAllFilteredData(sortedList, filteredList, { showCodOnly, showFastDeliveryOnly }) {
+  const getAllFilteredData = (sortedList, filteredList, { showCodOnly, showFastDeliveryOnly }) => {
     return filteredList
       .filter(({ cod }) => (showCodOnly ? cod : true))
       .filter(({ fastDelivery }) => (showFastDeliveryOnly ? fastDelivery : true));
-  }
+  };
 
   const sortedData = getSortedData(products, sortBy);
   const filters = getFilteredData(sortedData, rateBy, categories);
@@ -80,9 +29,7 @@ const ProductListing = () => {
   });
 
   useEffect(() => {
-    if (status === 'idle') {
-      dispatch(fetchProducts());
-    }
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   const getSingleProduct = (product) => {

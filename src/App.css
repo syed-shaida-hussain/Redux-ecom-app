@@ -2,3 +2,14 @@
   --primary-color: #3b82f6;
   --text-color: #f1f5f9;
 }
+
+.not-found-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found-img > img {
+  max-width: 20rem;
+  margin: 1.5rem;
+}
