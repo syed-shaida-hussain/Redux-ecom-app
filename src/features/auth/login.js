@@ -36,7 +36,6 @@ const Login = () => {
       }
     }
     dispatch(loginUser(data.encodedToken));
-    setUser(initialUserData);
   };
   return (
     <div className="signup-form-container flex-c ctr-vert mt1 mb1 ">
