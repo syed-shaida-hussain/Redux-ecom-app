@@ -17,18 +17,6 @@ export const registerNewUser = createAsyncThunk('/users/newUser', async (action)
   return data;
 });
 
-// export const loginUser = createAsyncThunk('/users/newUser', async (action) => {
-//   const user = action;
-//   const { data } = await axios.post('/api/auth/login', {
-//     email: user.email,
-//     password: user.password
-//     // firstName: user.firstName,
-//     // lastName: user.lastName
-//   });
-//   console.log(data);
-//   return data;
-// });
-
 const authSlice = createSlice({
   name: 'auth',
   initialState,
@@ -36,6 +24,10 @@ const authSlice = createSlice({
     loginUser: (state, action) => {
       state.authStatus = true;
       state.encodedToken = action.payload;
+    },
+    logoutUser: (state) => {
+      state.encodedToken = '';
+      state.authStatus = false;
     }
   },
   extraReducers: {
@@ -49,5 +41,5 @@ const authSlice = createSlice({
     }
   }
 });
-export const { loginUser } = authSlice.actions;
+export const { loginUser, logoutUser } = authSlice.actions;
 export default authSlice.reducer;

@@ -4,11 +4,22 @@ import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCh
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import { NavLink, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../features/auth/authSlice';
 
 const Header = () => {
   const { cartItems, wishlistItems } = useSelector((store) => store.products);
+  const { authStatus } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
   const location = useLocation();
+
+  const logoutHandler = () => {
+    setTimeout(() => {
+      dispatch(logoutUser());
+      localStorage.removeItem('ENCODED_TOKEN');
+    }, 1000);
+  };
+
   return (
     <nav className="header-nav flex-r sp-bw ml1 mr1 mt-half ctr-vert">
       <div className="flex-r ctr-vert logo-container sp-bw">
@@ -31,20 +42,30 @@ const Header = () => {
         />
       )}
 
-      <ul className="flex-r sub-nav sp-bw">
+      <ul className="flex-r sub-nav sp-bw ctr-vert">
         <NavLink to="/cart" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <Badge badgeContent={cartItems.length} color="success">
             <ShoppingCartCheckoutOutlinedIcon className="icon" />
           </Badge>
         </NavLink>
-        <NavLink to="/wishlist" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
+        <NavLink
+          to="/wishlist"
+          className={({ isActive }) => (isActive ? 'active-link ml1' : ' link ml1')}>
           <Badge badgeContent={wishlistItems.length} color="success">
             <FavoriteBorderOutlinedIcon className="icon" />
           </Badge>
         </NavLink>
-        <NavLink to="/login" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
-          <AccountBoxOutlinedIcon className="icon" />
-        </NavLink>
+        {!authStatus ? (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? 'active-link ml1' : ' link ml1 ')}>
+            <AccountBoxOutlinedIcon className="icon" />
+          </NavLink>
+        ) : (
+          <Button sx={{ marginLeft: '1rem' }} variant="contained" onClick={() => logoutHandler()}>
+            Logout
+          </Button>
+        )}
       </ul>
     </nav>
   );
