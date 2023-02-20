@@ -1,60 +1,54 @@
 import '../../style/utils.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { registerNewUser } from './authSlice';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { loginUser } from './authSlice';
 
-const Signup = () => {
+const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const initialUserData = { firstName: '', lastName: '', email: '', password: '' };
+  const initialUserData = { email: '', password: '' };
   const [user, setUser] = useState(initialUserData);
-  const signupSubmitHandler = () => {
+  const signServive = async ({ email, password }) => {
     try {
+      const { data } = await axios.post('/api/auth/login', {
+        email: email,
+        password: password
+      });
+      return data;
+    } catch (e) {
+      console.log(e.response.data.errors[0]);
+    }
+  };
+
+  const signinSubmitHandler = async (user) => {
+    const data = await signServive(user);
+    if (data.encodedToken !== undefined) {
+      localStorage.setItem('ENCODED_TOKEN', data.encodedToken);
       if (location.state != null) {
-        console.log(location);
         navigate(location.state.from.pathname);
       } else {
         navigate('/products');
       }
-      dispatch(registerNewUser(user));
-      setUser(initialUserData);
-    } catch (e) {
-      console.error(e);
     }
+    dispatch(loginUser(data.encodedToken));
+    setUser(initialUserData);
   };
   return (
     <div className="signup-form-container flex-c ctr-vert mt1 mb1 ">
-      <h2 className="mb1 pr-clr">Signup</h2>
+      <h2 className="mb1 pr-clr">Login</h2>
       <form
         className="signup-form p1 flex-c "
         onSubmit={(e) => {
           e.preventDefault();
-          signupSubmitHandler();
+          signinSubmitHandler(user);
         }}>
         <TextField
-          // required
-          type="text"
-          value={user.firstName}
-          id="standard-basic"
-          label="FirstName"
-          variant="standard"
-          onChange={(e) => setUser({ ...user, firstName: e.target.value })}
-        />
-        <TextField
-          // required
-          type="text"
-          value={user.lastName}
-          id="standard-basic1"
-          label="LastName"
-          variant="standard"
-          onChange={(e) => setUser({ ...user, lastName: e.target.value })}
-        />
-        <TextField
-          // required
+          required
           type="email"
           value={user.email}
           id="standard-basic2"
@@ -63,7 +57,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <TextField
-          // required
+          required
           type="password"
           value={user.password}
           id="standard-basic3"
@@ -71,15 +65,23 @@ const Signup = () => {
           variant="standard"
           onChange={(e) => setUser({ ...user, password: e.target.value })}
         />
-        <Button type="submit" variant="outlined">
-          Signup
+        <Button type="submit" variant="contained">
+          Login
         </Button>
-        <Button variant="text" onClick={() => navigate('/login')}>
-          Already a user?
+        <Button
+          variant="outlined"
+          onClick={() =>
+            signinSubmitHandler({
+              email: 'adarshBalika@gmail.com',
+              password: 'adarshbalika'
+            })
+          }>
+          Login as Guest
         </Button>
+        <Button onClick={() => navigate('/signup')}>Create new account</Button>
       </form>
     </div>
   );
 };
 
-export { Signup };
+export { Login };

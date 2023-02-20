@@ -42,7 +42,7 @@ const Header = () => {
             <FavoriteBorderOutlinedIcon className="icon" />
           </Badge>
         </NavLink>
-        <NavLink to="/signup" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
+        <NavLink to="/login" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <AccountBoxOutlinedIcon className="icon" />
         </NavLink>
       </ul>

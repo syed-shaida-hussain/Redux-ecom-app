@@ -17,11 +17,11 @@ const SingleProductPage = () => {
   const { authStatus } = useSelector((store) => store.auth);
 
   const addToCartHandler = () => {
-    authStatus ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/signup');
+    authStatus ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/login');
   };
 
   const addToWishlistHandler = () => {
-    authStatus ? dispatch(addToWishlistButtonClicked(singleProduct)) : navigate('/signup');
+    authStatus ? dispatch(addToWishlistButtonClicked(singleProduct)) : navigate('/login');
   };
 
   return (

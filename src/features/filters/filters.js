@@ -1,12 +1,13 @@
 import {
+  Button,
   Checkbox,
   FormControl,
   FormControlLabel,
   FormGroup,
   FormLabel,
   Radio,
-  RadioGroup,
-  Slider
+  RadioGroup
+  // Slider
 } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import CloseIcon from '@mui/icons-material/Close';
@@ -35,10 +36,12 @@ const Filters = () => {
     <aside className="filters mt1 ml1 mr1">
       <div className="flex-r sp-bw mb1">
         <span>Filters</span>
-        <button onClick={() => dispatch(clearAllFilters())}>Clear All Filters</button>
+        <Button variant="text" onClick={() => dispatch(clearAllFilters())}>
+          Clear All Filters
+        </Button>
         <CloseIcon className="icon" onClick={() => dispatch(toggleFilters())} />
       </div>
-      <Slider size="small" defaultValue={500} aria-label="Small" valueLabelDisplay="auto" />
+      {/* <Slider size="small" defaultValue={500} aria-label="Small" valueLabelDisplay="auto" /> */}
       <FormControl>
         <FormLabel id="demo-radio-buttons-group-label">Rating</FormLabel>
         <RadioGroup aria-labelledby="demo-radio-buttons-group-label" name="radio-buttons-group">

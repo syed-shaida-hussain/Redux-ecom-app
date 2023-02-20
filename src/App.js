@@ -9,6 +9,7 @@ import { CartPage } from './common/pages/cartPage/cartPage';
 import { WishlistPage } from './common/pages/wishlistPage/wishlistPage';
 import { Header } from './common/components/header';
 import { PageNotFound } from './common/components/notFound';
+import { LoginPage } from './common/pages/Authentication/loginPage';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/home" element={<LandingPage />} />
         <Route path="/products" element={<ProductListingPage />} />
         <Route path="/signup" element={<SignupPage />} />
+        <Route path="/login" element={<LoginPage />} />
         <Route path={`products/:productId`} element={<SingleProductPage />} />
         <Route path="/" element={<RequireAuth />}>
           <Route path="/cart" element={<CartPage />} />
