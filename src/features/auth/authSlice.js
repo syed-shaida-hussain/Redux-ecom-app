@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   encodedToken: '',
-  authStatus: false
+  authStatus: localStorage.getItem('ENCODED_TOKEN') ? true : false
 };
 
 const authSlice = createSlice({
@@ -20,8 +20,7 @@ const authSlice = createSlice({
       state.encodedToken = '';
       state.authStatus = false;
     }
-  },
-  extraReducers: {}
+  }
 });
 export const { loginUser, logoutUser, registerNewUser } = authSlice.actions;
 export default authSlice.reducer;
