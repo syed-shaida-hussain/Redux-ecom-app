@@ -73,11 +73,7 @@ const productSlice = createSlice({
   reducers: {
     addToCartButtonClicked: (state, action) => {
       try {
-        axios.post(
-          '/api/user/cart',
-          { product: action.payload },
-          { headers: { authorization: encodedToken } }
-        );
+        axios.post('/api/user/cart', action.payload, { headers: { authorization: encodedToken } });
         state.cartItems = [...state.cartItems, action.payload];
         state.totalCartPrice += Number(action.payload.discountedPrice);
       } catch (e) {
@@ -86,13 +82,9 @@ const productSlice = createSlice({
     },
     addToWishlistButtonClicked: (state, action) => {
       try {
-        axios.post(
-          '/api/user/wishlist',
-          { product: action.payload },
-          {
-            headers: { authorization: encodedToken }
-          }
-        );
+        axios.post('/api/user/wishlist', action.payload, {
+          headers: { authorization: encodedToken }
+        });
         state.wishlistItems = [...state.wishlistItems, action.payload];
       } catch (e) {
         console.log(e.response.data);
