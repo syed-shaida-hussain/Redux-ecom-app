@@ -32,13 +32,10 @@ const filterSlice = createSlice({
       state.categories = action.payload.isChecked
         ? [...state.categories, selectedOption]
         : state.categories.filter((category) => category !== selectedOption);
-      console.log(state.categories);
     },
     categorize: (state, action) => {
       const selectedOption = action.payload.selectedOption;
       state.categories = [selectedOption];
-      // : state.categories.filter((category) => category !== selectedOption);
-      // console.log(state.categories);
     },
     filterByRating: (state, action) => {
       state.rateBy = action.payload;

@@ -6,6 +6,8 @@ import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import { NavLink, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../features/auth/authSlice';
+import { toast } from 'react-toastify';
+import { resetUserData } from '../../features/products/productSlice';
 
 const Header = () => {
   const { cartItems, wishlistItems } = useSelector((store) => store.products);
@@ -14,10 +16,10 @@ const Header = () => {
   const location = useLocation();
 
   const logoutHandler = () => {
-    setTimeout(() => {
-      dispatch(logoutUser());
-      localStorage.removeItem('ENCODED_TOKEN');
-    }, 1000);
+    dispatch(logoutUser());
+    dispatch(resetUserData());
+    localStorage.removeItem('ENCODED_TOKEN');
+    toast.success('You have been Logged out successfully');
   };
 
   return (
@@ -44,14 +46,14 @@ const Header = () => {
 
       <ul className="flex-r sub-nav sp-bw ctr-vert">
         <NavLink to="/cart" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
-          <Badge badgeContent={cartItems.length} color="success">
+          <Badge badgeContent={cartItems?.length} color="success">
             <ShoppingCartCheckoutOutlinedIcon className="icon" />
           </Badge>
         </NavLink>
         <NavLink
           to="/wishlist"
           className={({ isActive }) => (isActive ? 'active-link ml1' : ' link ml1')}>
-          <Badge badgeContent={wishlistItems.length} color="success">
+          <Badge badgeContent={wishlistItems?.length} color="success">
             <FavoriteBorderOutlinedIcon className="icon" />
           </Badge>
         </NavLink>

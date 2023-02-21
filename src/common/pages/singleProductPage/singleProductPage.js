@@ -7,6 +7,7 @@ import {
   addToWishlistButtonClicked
 } from '../../../features/products/productSlice';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
 
 const SingleProductPage = () => {
   const dispatch = useDispatch();
@@ -17,11 +18,17 @@ const SingleProductPage = () => {
   const { authStatus } = useSelector((store) => store.auth);
 
   const addToCartHandler = () => {
-    authStatus ? dispatch(addToCartButtonClicked(singleProduct)) : navigate('/login');
+    authStatus
+      ? dispatch(addToCartButtonClicked(singleProduct)) &&
+        toast.success('Item Added to Cart Successfully')
+      : navigate('/login');
   };
 
   const addToWishlistHandler = () => {
-    authStatus ? dispatch(addToWishlistButtonClicked(singleProduct)) : navigate('/login');
+    authStatus
+      ? dispatch(addToWishlistButtonClicked(singleProduct)) &&
+        toast.success('Item Added to Wishlist Successfully')
+      : navigate('/login');
   };
 
   return (

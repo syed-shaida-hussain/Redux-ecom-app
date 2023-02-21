@@ -4,28 +4,55 @@ import { useDispatch } from 'react-redux';
 import { registerNewUser } from './authSlice';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 const Signup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
   const initialUserData = { firstName: '', lastName: '', email: '', password: '' };
   const [user, setUser] = useState(initialUserData);
-  const signupSubmitHandler = () => {
+
+  const signupServive = async ({ firstName, lastName, email, password }) => {
     try {
-      if (location.state != null) {
-        console.log(location);
-        navigate(location.state.from.pathname);
-      } else {
-        navigate('/products');
-      }
-      dispatch(registerNewUser(user));
-      setUser(initialUserData);
+      const { data } = await axios.post('/api/auth/signup', {
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName
+      });
+      return data;
     } catch (e) {
-      console.error(e);
+      toast.error(e.response.data.errors[0]);
     }
   };
+
+  const signupSubmitHandler = async () => {
+    const data = await signupServive(user);
+    if (data.encodedToken !== undefined) {
+      localStorage.setItem('ENCODED_TOKEN', data.encodedToken);
+      navigate('/products');
+    }
+    toast.success('You account is created successfully');
+    dispatch(registerNewUser(data.encodedToken));
+  };
+  // const signupSubmitHandler = () => {
+  //   try {
+  //     if (location.state != null) {
+  //       console.log(location);
+  //       navigate(location.state.from.pathname);
+  //     } else {
+  //       navigate('/products');
+  //     }
+  //     dispatch(registerNewUser(user));
+  //     toast.success('You have been registered successfully');
+  //     setUser(initialUserData);
+  //   } catch (e) {
+  //     console.error(e);
+  //     toast.error('User Already exists');
+  //   }
+  // };
   return (
     <div className="signup-form-container flex-c ctr-vert mt1 mb1 ">
       <h2 className="mb1 pr-clr">Signup</h2>
@@ -36,7 +63,7 @@ const Signup = () => {
           signupSubmitHandler();
         }}>
         <TextField
-          // required
+          required
           type="text"
           value={user.firstName}
           id="standard-basic"
@@ -45,7 +72,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, firstName: e.target.value })}
         />
         <TextField
-          // required
+          required
           type="text"
           value={user.lastName}
           id="standard-basic1"
@@ -54,7 +81,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, lastName: e.target.value })}
         />
         <TextField
-          // required
+          required
           type="email"
           value={user.email}
           id="standard-basic2"
@@ -63,7 +90,7 @@ const Signup = () => {
           onChange={(e) => setUser({ ...user, email: e.target.value })}
         />
         <TextField
-          // required
+          required
           type="password"
           value={user.password}
           id="standard-basic3"

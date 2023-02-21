@@ -14,47 +14,57 @@ const initialState = {
 };
 
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const res = await fetch('/api/products');
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch('/api/products');
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
 });
 
 export const fetchSingleProduct = createAsyncThunk(
   '/products/fetchSingleProduct',
   async (action) => {
-    const productId = action._id;
-    const res = await fetch(`/api/products/${productId}`);
-    const data = await res.json();
-    return data;
+    try {
+      const productId = action._id;
+      const res = await fetch(`/api/products/${productId}`);
+      const data = await res.json();
+      return data;
+    } catch (e) {
+      console.log(e.response.data);
+    }
   }
 );
 
 export const fetchCategories = createAsyncThunk('/products/categories', async () => {
-  const res = await fetch('/api/categories');
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch('/api/categories');
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
 });
 
-export const fetchSingleCategory = createAsyncThunk(
-  '/products/categories/singleCategory',
-  async (action) => {
-    const categoryId = action;
-    const res = await fetch(`/api/categories/${categoryId}`);
-    const data = await res.json();
-    console.log(data);
-  }
-);
-
 export const fetchCartItems = createAsyncThunk('/products/fetchCartItems', async () => {
-  const res = await fetch('/api/user/cart', { headers: { authorization: encodedToken } });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch('/api/user/cart', { headers: { authorization: encodedToken } });
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
 });
 
 export const fetchWishlistItems = createAsyncThunk('/products/fetchWishlistItems', async () => {
-  const res = await fetch('/api/user/wishlist', { headers: { authorization: encodedToken } });
-  const data = await res.json();
-  return data;
+  try {
+    const res = await fetch('/api/user/wishlist', { headers: { authorization: encodedToken } });
+    const data = await res.json();
+    return data;
+  } catch (e) {
+    console.log(e.response.data);
+  }
 });
 
 const productSlice = createSlice({
@@ -62,68 +72,98 @@ const productSlice = createSlice({
   initialState,
   reducers: {
     addToCartButtonClicked: (state, action) => {
-      axios.post(
-        '/api/user/cart',
-        { product: action.payload },
-        { headers: { authorization: encodedToken } }
-      );
-      state.cartItems = [...state.cartItems, action.payload];
-      state.totalCartPrice += Number(action.payload.discountedPrice);
+      try {
+        axios.post(
+          '/api/user/cart',
+          { product: action.payload },
+          { headers: { authorization: encodedToken } }
+        );
+        state.cartItems = [...state.cartItems, action.payload];
+        state.totalCartPrice += Number(action.payload.discountedPrice);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     },
     addToWishlistButtonClicked: (state, action) => {
-      axios.post(
-        '/api/user/wishlist',
-        { product: action.payload },
-        {
-          headers: { authorization: encodedToken }
-        }
-      );
-      state.wishlistItems = [...state.wishlistItems, action.payload];
+      try {
+        axios.post(
+          '/api/user/wishlist',
+          { product: action.payload },
+          {
+            headers: { authorization: encodedToken }
+          }
+        );
+        state.wishlistItems = [...state.wishlistItems, action.payload];
+      } catch (e) {
+        console.log(e.response.data);
+      }
     },
     deleteCartButtonClicked: (state, action) => {
-      const productId = action.payload._id;
-      axios.delete(`/api/user/cart/${productId}`, { headers: { authorization: encodedToken } });
-      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
-      const currentProductQuantity = state.cartItems[productIndex].quantity;
-      state.cartItems = state.cartItems.filter((item) => item._id !== productId);
-      state.totalCartPrice =
-        state.totalCartPrice -
-        Number(action.payload.discountedPrice) * Number(currentProductQuantity);
+      try {
+        const productId = action.payload._id;
+        axios.delete(`/api/user/cart/${productId}`, { headers: { authorization: encodedToken } });
+        const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+        const currentProductQuantity = state.cartItems[productIndex].quantity;
+        state.cartItems = state.cartItems.filter((item) => item._id !== productId);
+        state.totalCartPrice =
+          state.totalCartPrice -
+          Number(action.payload.discountedPrice) * Number(currentProductQuantity);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     },
     deleteWishlistButtonClicked: (state, action) => {
-      const productId = action.payload._id;
-      axios.delete(`/api/user/wishlist/${productId}`, { headers: { authorization: encodedToken } });
-      state.wishlistItems = state.wishlistItems.filter((item) => item._id !== productId);
+      try {
+        const productId = action.payload._id;
+        axios.delete(`/api/user/wishlist/${productId}`, {
+          headers: { authorization: encodedToken }
+        });
+        state.wishlistItems = state.wishlistItems.filter((item) => item._id !== productId);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     },
     incrementCartQuantity: (state, action) => {
-      const productId = action.payload._id;
-      axios.post(
-        `/api/user/cart/${productId}`,
-        {
-          action: {
-            type: 'increment'
-          }
-        },
-        { headers: { authorization: encodedToken } }
-      );
-      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
-      state.cartItems[productIndex].quantity += 1;
-      state.totalCartPrice += Number(action.payload.discountedPrice);
+      try {
+        const productId = action.payload._id;
+        axios.post(
+          `/api/user/cart/${productId}`,
+          {
+            action: {
+              type: 'increment'
+            }
+          },
+          { headers: { authorization: encodedToken } }
+        );
+        const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+        state.cartItems[productIndex].quantity += 1;
+        state.totalCartPrice += Number(action.payload.discountedPrice);
+      } catch (e) {
+        console.log(e.response.data);
+      }
     },
     decrementCartQuantity: (state, action) => {
-      const productId = action.payload._id;
-      axios.post(
-        `/api/user/cart/${productId}`,
-        {
-          action: {
-            type: 'decrement'
-          }
-        },
-        { headers: { authorization: encodedToken } }
-      );
-      const productIndex = state.cartItems.findIndex((product) => product._id === productId);
-      state.cartItems[productIndex].quantity -= 1;
-      state.totalCartPrice -= Number(action.payload.discountedPrice);
+      try {
+        const productId = action.payload._id;
+        axios.post(
+          `/api/user/cart/${productId}`,
+          {
+            action: {
+              type: 'decrement'
+            }
+          },
+          { headers: { authorization: encodedToken } }
+        );
+        const productIndex = state.cartItems.findIndex((product) => product._id === productId);
+        state.cartItems[productIndex].quantity -= 1;
+        state.totalCartPrice -= Number(action.payload.discountedPrice);
+      } catch (e) {
+        console.log(e.response.data);
+      }
+    },
+    resetUserData: (state) => {
+      state.cartItems = [];
+      state.wishlistItems = [];
     }
   },
   extraReducers: {
@@ -171,7 +211,8 @@ export const {
   deleteCartButtonClicked,
   deleteWishlistButtonClicked,
   incrementCartQuantity,
-  decrementCartQuantity
+  decrementCartQuantity,
+  resetUserData
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -8,6 +8,7 @@ import {
 } from './productSlice';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Wishlist = () => {
   const dispatch = useDispatch();
@@ -18,6 +19,17 @@ const Wishlist = () => {
       dispatch(fetchWishlistItems());
     }
   }, [dispatch]);
+
+  const deleteFromWishlistHandler = (product) => {
+    dispatch(deleteWishlistButtonClicked(product));
+    toast.success('Item removed from wishlist successfully');
+  };
+
+  const addToCartHandler = (product) => {
+    dispatch(addToCartButtonClicked(product));
+    toast.success('Item Added to cart successfully');
+  };
+
   return (
     <div>
       {status === 'loading' ? (
@@ -51,7 +63,7 @@ const Wishlist = () => {
                     <span className="mr1">
                       <Button
                         variant="contained"
-                        onClick={() => dispatch(deleteWishlistButtonClicked(product))}>
+                        onClick={() => deleteFromWishlistHandler(product)}>
                         Remove from Wishlist
                       </Button>
                     </span>
@@ -60,9 +72,7 @@ const Wishlist = () => {
                         Go to Cart
                       </Button>
                     ) : (
-                      <Button
-                        variant="outlined"
-                        onClick={() => dispatch(addToCartButtonClicked(product))}>
+                      <Button variant="outlined" onClick={() => addToCartHandler(product)}>
                         Add to Cart
                       </Button>
                     )}

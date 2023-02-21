@@ -9,6 +9,7 @@ import {
 } from './productSlice';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -20,15 +21,35 @@ const Cart = () => {
       dispatch(fetchCartItems());
     }
   }, [dispatch, status]);
+
+  const removeFromCartHandler = (product) => {
+    dispatch(deleteCartButtonClicked(product));
+    toast.success('Item removed from cart successfully');
+  };
+
+  const addToWishlistHandler = (product) => {
+    dispatch(addToWishlistButtonClicked(product));
+    toast.success('Item Added to wishlist');
+  };
+
+  const decrementCartQuantityHandler = (product) => {
+    dispatch(decrementCartQuantity(product));
+    toast.success('Item quantity updated successfully');
+  };
+
+  const incrementCartQuantityHandler = (product) => {
+    dispatch(incrementCartQuantity(product));
+    toast.success('Item quantity updated successfully');
+  };
   return (
     <div>
       {status === 'loading' ? (
         <div className="centered mt1">Loading...</div>
       ) : (
         <main>
-          {cartItems.length > 0 ? (
+          {cartItems?.length > 0 ? (
             <section>
-              {cartItems.map((product) => (
+              {cartItems?.map((product) => (
                 <div key={product._id} className="flex-r single-product-container p-min ml1 mt1 ">
                   <div>
                     <img
@@ -41,15 +62,15 @@ const Cart = () => {
                         variant="outlined"
                         onClick={() =>
                           product.quantity <= 1
-                            ? dispatch(deleteCartButtonClicked(product))
-                            : dispatch(decrementCartQuantity(product))
+                            ? removeFromCartHandler(product)
+                            : decrementCartQuantityHandler(product)
                         }>
                         -
                       </Button>
                       <span className="ml1 mr1 pr-clr">{product.quantity}</span>
                       <Button
                         variant="contained"
-                        onClick={() => dispatch(incrementCartQuantity(product))}>
+                        onClick={() => incrementCartQuantityHandler(product)}>
                         +
                       </Button>
                     </div>
@@ -65,9 +86,7 @@ const Cart = () => {
                     <div className="bold u-case mb-min"> Gender : {product?.gender}</div>
                     <div className=" mb1">15 days replacement policy available.</div>
                     <span className="mr1">
-                      <Button
-                        variant="contained"
-                        onClick={() => dispatch(deleteCartButtonClicked(product))}>
+                      <Button variant="contained" onClick={() => removeFromCartHandler(product)}>
                         Remove from cart
                       </Button>
                     </span>
@@ -76,9 +95,7 @@ const Cart = () => {
                         Go to Wishlist
                       </Button>
                     ) : (
-                      <Button
-                        variant="outlined"
-                        onClick={() => dispatch(addToWishlistButtonClicked(product))}>
+                      <Button variant="outlined" onClick={() => addToWishlistHandler(product)}>
                         Add to Wishlist
                       </Button>
                     )}

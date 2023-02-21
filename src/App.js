@@ -10,6 +10,8 @@ import { WishlistPage } from './common/pages/wishlistPage/wishlistPage';
 import { Header } from './common/components/header';
 import { PageNotFound } from './common/components/notFound';
 import { LoginPage } from './common/pages/Authentication/loginPage';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -28,6 +30,18 @@ function App() {
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 }

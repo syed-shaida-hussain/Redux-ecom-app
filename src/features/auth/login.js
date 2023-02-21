@@ -6,6 +6,7 @@ import Button from '@mui/material/Button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { loginUser } from './authSlice';
+import { toast } from 'react-toastify';
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const Login = () => {
   const location = useLocation();
   const initialUserData = { email: '', password: '' };
   const [user, setUser] = useState(initialUserData);
-  const signServive = async ({ email, password }) => {
+  const signinServive = async ({ email, password }) => {
     try {
       const { data } = await axios.post('/api/auth/login', {
         email: email,
@@ -22,11 +23,12 @@ const Login = () => {
       return data;
     } catch (e) {
       console.log(e.response.data.errors[0]);
+      toast.error(e.response.data.errors[0]);
     }
   };
 
   const signinSubmitHandler = async (user) => {
-    const data = await signServive(user);
+    const data = await signinServive(user);
     if (data.encodedToken !== undefined) {
       localStorage.setItem('ENCODED_TOKEN', data.encodedToken);
       if (location.state != null) {
@@ -35,6 +37,7 @@ const Login = () => {
         navigate('/products');
       }
     }
+    toast.success('Logged in successfully');
     dispatch(loginUser(data.encodedToken));
   };
   return (
