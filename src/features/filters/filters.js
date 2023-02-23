@@ -44,7 +44,7 @@ const Filters = () => {
       </div>
       <Slider
         aria-label="Price Range"
-        defaultValue={price}
+        value={price}
         valueLabelDisplay="auto"
         step={500}
         marks

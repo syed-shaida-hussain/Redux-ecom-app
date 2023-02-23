@@ -42,12 +42,10 @@ const filterSlice = createSlice({
     },
     priceFilter: (state, action) => {
       const price = action.payload;
-      console.log(price);
       state.price = price;
     },
     searchFilter: (state, action) => {
       state.searchQuery = action.payload;
-      console.log(action.payload);
     },
     clearAllFilters: (state) => {
       (state.rateBy = null),

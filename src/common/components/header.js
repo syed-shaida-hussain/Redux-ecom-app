@@ -13,6 +13,8 @@ import { searchFilter } from '../../features/filters/filterSlice';
 const Header = () => {
   const { cartItems, wishlistItems } = useSelector((store) => store.products);
   const { authStatus } = useSelector((store) => store.auth);
+  const { searchQuery } = useSelector((store) => store.filters);
+
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -38,6 +40,7 @@ const Header = () => {
       </div>
       {location.pathname === '/products' && (
         <TextField
+          value={searchQuery}
           onChange={(e) => dispatch(searchFilter(e.target.value))}
           id="filled-basic"
           className="input-field"
