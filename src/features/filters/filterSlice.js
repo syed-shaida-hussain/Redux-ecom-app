@@ -5,7 +5,7 @@ const initialState = {
   rateBy: null,
   sortBy: null,
   categories: [],
-  searchBy: null,
+  searchQuery: '',
   showFastDeliveryOnly: false,
   showCodOnly: false,
   price: 4000
@@ -40,13 +40,23 @@ const filterSlice = createSlice({
     filterByRating: (state, action) => {
       state.rateBy = action.payload;
     },
+    priceFilter: (state, action) => {
+      const price = action.payload;
+      console.log(price);
+      state.price = price;
+    },
+    searchFilter: (state, action) => {
+      state.searchQuery = action.payload;
+      console.log(action.payload);
+    },
     clearAllFilters: (state) => {
       (state.rateBy = null),
         (state.sortBy = null),
         (state.categories = []),
-        (state.searchBy = null),
+        (state.searchQuery = ''),
         (state.showFastDeliveryOnly = false),
-        (state.showCodOnly = false);
+        (state.showCodOnly = false),
+        (state.price = 4000);
     }
   }
 });
@@ -59,7 +69,9 @@ export const {
   sortProducts,
   categorizeProducts,
   filterByRating,
-  categorize
+  categorize,
+  priceFilter,
+  searchFilter
 } = filterSlice.actions;
 
 export default filterSlice.reducer;

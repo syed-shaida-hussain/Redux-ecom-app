@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../features/auth/authSlice';
 import { toast } from 'react-toastify';
 import { resetUserData } from '../../features/products/productSlice';
+import { searchFilter } from '../../features/filters/filterSlice';
 
 const Header = () => {
   const { cartItems, wishlistItems } = useSelector((store) => store.products);
@@ -37,6 +38,7 @@ const Header = () => {
       </div>
       {location.pathname === '/products' && (
         <TextField
+          onChange={(e) => dispatch(searchFilter(e.target.value))}
           id="filled-basic"
           className="input-field"
           label="Search products...."
