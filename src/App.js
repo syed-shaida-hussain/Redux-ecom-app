@@ -12,6 +12,7 @@ import { PageNotFound } from './common/components/notFound';
 import { LoginPage } from './common/pages/Authentication/loginPage';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Checkout from './common/components/checkout';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/" element={<RequireAuth />}>
           <Route path="/cart" element={<CartPage />} />
           <Route path="/wishlist" element={<WishlistPage />} />
+          <Route path="/checkout" element={<Checkout />} />
         </Route>
         <Route path="/*" element={<PageNotFound />} />
       </Routes>

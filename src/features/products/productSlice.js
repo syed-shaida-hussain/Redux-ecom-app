@@ -153,6 +153,9 @@ const productSlice = createSlice({
         console.log(e.response.data);
       }
     },
+    checkOut: (state) => {
+      (state.cartItems = []), (state.totalCartPrice = 0);
+    },
     resetUserData: (state) => {
       state.cartItems = [];
       state.wishlistItems = [];
@@ -204,7 +207,8 @@ export const {
   deleteWishlistButtonClicked,
   incrementCartQuantity,
   decrementCartQuantity,
-  resetUserData
+  resetUserData,
+  checkOut
 } = productSlice.actions;
 
 export default productSlice.reducer;

@@ -1,8 +1,10 @@
 import { Button } from '@mui/material';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router';
 
 const PriceModal = () => {
   const { cartItems, totalCartPrice } = useSelector((store) => store.products);
+  const navigate = useNavigate();
   return (
     <div className="price-modal p1 mt1">
       <div className="u-case pr-clr ft-lg bold mb-min">Price details</div>
@@ -22,7 +24,9 @@ const PriceModal = () => {
       </div>
       <div className="hr mb-min"></div>
       <div className="place-order-btn">
-        <Button variant="contained">Place Order</Button>
+        <Button variant="contained" onClick={() => navigate('/checkout')}>
+          Proceed to checkout
+        </Button>
       </div>
     </div>
   );
