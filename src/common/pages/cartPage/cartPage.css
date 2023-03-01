@@ -14,3 +14,14 @@
 .place-order-btn > button {
   width: 100%;
 }
+
+@media only screen and (max-width: 960px) {
+  .cart-page {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .price-modal {
+    margin: 1rem auto;
+  }
+}

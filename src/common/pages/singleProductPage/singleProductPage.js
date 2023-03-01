@@ -42,7 +42,7 @@ const SingleProductPage = () => {
             src={singleProduct?.src?.url}
             alt={singleProduct?.url?.alt}
           />
-          <div className="ml1 mr1 mb1">
+          <div className="ml1 mt1 mr1 mb1">
             <h3 className="mb-min mt-min">{singleProduct?.brand}</h3>
             <div className="bold mb-min">{singleProduct?.name}</div>
             <div className="mb-min">

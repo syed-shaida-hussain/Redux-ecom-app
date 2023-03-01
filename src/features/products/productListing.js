@@ -9,8 +9,8 @@ import { getCategorisedData } from '../../utils/getCategorisedData';
 import { getRatedData } from '../../utils/getRatedData';
 import { getSortedData } from '../../utils/sortData';
 import { getSearchedData } from '../../utils/getSearchedData';
-// import { getFilteredData } from '../../utils/filterData';
-// import { getSortedData } from '../../utils/sortData';
+import TextField from '@mui/material/TextField';
+import { searchFilter } from '../filters/filterSlice';
 
 const ProductListing = () => {
   const dispatch = useDispatch();
@@ -31,8 +31,6 @@ const ProductListing = () => {
       .filter(({ fastDelivery }) => (showFastDeliveryOnly ? fastDelivery : true));
   };
 
-  // const sortedData = getSortedData(products, sortBy);
-  // const filters = getFilteredData(sortedData, rateBy, categories);
   const filteredData = getAllFilteredData(sortedProducts, {
     showCodOnly,
     showFastDeliveryOnly
@@ -53,6 +51,17 @@ const ProductListing = () => {
         <div className="centered mt1">Loading....</div>
       ) : (
         <div>
+          <div className="ml-min mr-min mb-min">
+            <TextField
+              className={'input-field'}
+              value={searchQuery}
+              onChange={(e) => dispatch(searchFilter(e.target.value))}
+              id="filled-basic"
+              label="Search products...."
+              variant="outlined"
+            />
+          </div>
+
           <div className="flex-r wrap">
             {filteredData.map((product) => (
               <div

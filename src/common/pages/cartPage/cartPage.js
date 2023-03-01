@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 const CartPage = () => {
   const { cartItems } = useSelector((store) => store.products);
   return (
-    <div className="flex-r sp-ar ml1 mr1">
+    <div className="flex-r cart-page sp-ar ml1 mr1">
       <Cart />
       {cartItems.length > 0 && <PriceModal />}
     </div>

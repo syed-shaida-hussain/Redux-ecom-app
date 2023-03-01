@@ -65,6 +65,14 @@ body {
   margin-bottom: 10px;
 }
 
+.ml-min {
+  margin-left: 0.4rem;
+}
+
+.mr-min {
+  margin-right: 0.4rem;
+}
+
 .mt-half {
   margin-top: 0.5rem;
 }
@@ -123,4 +131,8 @@ body {
 
 .logout-btn {
   height: 85vh;
+}
+
+.btn {
+  padding: 0px 0px;
 }

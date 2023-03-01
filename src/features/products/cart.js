@@ -57,7 +57,7 @@ const Cart = () => {
                       src={product?.src?.url}
                       alt={product?.url?.alt}
                     />
-                    <div className="mt1 ft-md  mb1">
+                    <div className="mt1 ml1 mr1 ft-md  mb1">
                       <Button
                         variant="outlined"
                         onClick={() =>
@@ -91,11 +91,17 @@ const Cart = () => {
                       </Button>
                     </span>
                     {wishlistItems?.find((item) => item._id === product._id) ? (
-                      <Button variant="outlined" onClick={() => navigate('/wishlist')}>
+                      <Button
+                        sx={{ marginTop: '10px' }}
+                        variant="outlined"
+                        onClick={() => navigate('/wishlist')}>
                         Go to Wishlist
                       </Button>
                     ) : (
-                      <Button variant="outlined" onClick={() => addToWishlistHandler(product)}>
+                      <Button
+                        sx={{ marginTop: '10px' }}
+                        variant="outlined"
+                        onClick={() => addToWishlistHandler(product)}>
                         Add to Wishlist
                       </Button>
                     )}

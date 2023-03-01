@@ -42,11 +42,12 @@ const LandingPage = () => {
           </div>
           <section className="flex-r sp-ar mb1 mt1">
             {categories?.map(({ categoryName, _id, categoryImg }) => (
-              <div key={_id} onClick={() => handleCategoryChange(categoryName)}>
+              <div
+                className="flex-c ctr-vert"
+                key={_id}
+                onClick={() => handleCategoryChange(categoryName)}>
                 <img src={categoryImg} className="category-img" />
-                <div className="centered u-case bold ft-md mt-min mb-min pr-clr">
-                  {categoryName}
-                </div>
+                <div className=" u-case bold ft-md mt-min mb-min pr-clr">{categoryName}</div>
               </div>
             ))}
           </section>
