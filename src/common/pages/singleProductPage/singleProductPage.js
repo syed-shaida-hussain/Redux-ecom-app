@@ -55,11 +55,17 @@ const SingleProductPage = () => {
             <div className=" u-case mb1">15 day replacement policy available.</div>
             <span className="mr1">
               {cartItems?.find((product) => product._id === singleProduct._id) ? (
-                <Button variant="contained" onClick={() => navigate('/cart')}>
+                <Button
+                  sx={{ marginBottom: '10px' }}
+                  variant="contained"
+                  onClick={() => navigate('/cart')}>
                   Go to cart
                 </Button>
               ) : (
-                <Button variant="contained" onClick={() => addToCartHandler()}>
+                <Button
+                  sx={{ marginBottom: '10px' }}
+                  variant="contained"
+                  onClick={() => addToCartHandler()}>
                   Add to cart
                 </Button>
               )}{' '}
