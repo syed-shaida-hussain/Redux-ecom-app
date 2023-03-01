@@ -47,7 +47,7 @@ const LandingPage = () => {
                 key={_id}
                 onClick={() => handleCategoryChange(categoryName)}>
                 <img src={categoryImg} className="category-img" />
-                <div className=" u-case bold ft-md mt-min mb-min pr-clr">{categoryName}</div>
+                <div className=" u-case mt-min mb-min pr-clr">{categoryName}</div>
               </div>
             ))}
           </section>

@@ -23,7 +23,7 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: 100vw 90vh;
+  background-size: 100vw 100vh;
   margin: 1px 0px;
 }
 
@@ -50,7 +50,7 @@
     max-width: 2rem;
   }
 
-  .btn {
-    font-size: small;
+  .header-nav {
+    padding: 0.5rem 0rem;
   }
 }
