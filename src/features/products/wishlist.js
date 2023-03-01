@@ -62,6 +62,7 @@ const Wishlist = () => {
                     <div className=" mb1">15 day replacement policy available.</div>
                     <span className="mr1">
                       <Button
+                        sx={{ marginBottom: '10px' }}
                         variant="contained"
                         onClick={() => deleteFromWishlistHandler(product)}>
                         Remove from Wishlist

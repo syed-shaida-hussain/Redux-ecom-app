@@ -44,3 +44,13 @@
   height: 70%;
   border-radius: 8px;
 }
+
+@media only screen and (max-width: 450px) {
+  .logo {
+    max-width: 2rem;
+  }
+
+  .btn {
+    font-size: small;
+  }
+}
