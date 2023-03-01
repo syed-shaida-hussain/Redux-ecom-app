@@ -59,7 +59,7 @@ const Header = () => {
             <AccountBoxOutlinedIcon className="icon" />
           </NavLink>
         ) : (
-          <Button sx={{ marginLeft: '1rem' }} variant="contained" onClick={() => logoutHandler()}>
+          <Button sx={{ marginLeft: '1rem' }} variant="text" onClick={() => logoutHandler()}>
             Logout
           </Button>
         )}
