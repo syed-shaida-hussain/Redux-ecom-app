@@ -35,8 +35,7 @@ const Filters = () => {
 
   return (
     <aside className="filters mt1 ml1 mr1">
-      <div className="flex-r sp-bw mb1">
-        <span>Filters</span>
+      <div className="flex-r sp-bw ctr-vert mb1">
         <Button variant="text" onClick={() => dispatch(clearAllFilters())}>
           Clear All Filters
         </Button>

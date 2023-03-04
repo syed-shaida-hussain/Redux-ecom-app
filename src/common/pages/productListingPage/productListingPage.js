@@ -4,7 +4,7 @@ import { FilterDrawer } from '../../components/drawer';
 
 const ProductListingPage = () => {
   return (
-    <div className="">
+    <div>
       <FilterDrawer />
       <ProductListing />
     </div>
