@@ -1,12 +1,13 @@
 .product-container {
   width: 18.4rem;
   margin: 10px;
-  box-shadow: 1px 1px 5px 1px var(--primary-color);
+  box-shadow: 2px 2px 7px 2px var(--text-color);
   border-radius: 5px;
 }
 
 .product-container:hover {
   cursor: pointer;
+  transform: rotate(0.2deg);
 }
 
 .product-img {
