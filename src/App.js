@@ -1,7 +1,6 @@
 import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import { SignupPage } from './common/pages/Authentication/signupPage';
-import { LandingPage } from './common/pages/landingpage/landingPage';
 import { ProductListingPage } from './common/pages/productListingPage/productListingPage';
 import { SingleProductPage } from './common/pages/singleProductPage/singleProductPage';
 import { RequireAuth } from './common/components/requireAuth';
@@ -19,8 +18,8 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/" element={<LandingPage />} />
-        <Route path="/home" element={<LandingPage />} />
+        <Route path="/" element={<ProductListingPage />} />
+        <Route path="/home" element={<ProductListingPage />} />
         <Route path="/products" element={<ProductListingPage />} />
         <Route path="/signup" element={<SignupPage />} />
         <Route path="/login" element={<LoginPage />} />

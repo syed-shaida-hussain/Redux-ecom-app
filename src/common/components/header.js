@@ -2,7 +2,6 @@ import Logo from '../../assets/logo.svg';
 import { Button, Badge } from '@mui/material';
 import ShoppingCartCheckoutOutlinedIcon from '@mui/icons-material/ShoppingCartCheckoutOutlined';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import AccountBoxOutlinedIcon from '@mui/icons-material/AccountBoxOutlined';
 import { NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutUser } from '../../features/auth/authSlice';
@@ -25,18 +24,22 @@ const Header = () => {
     <nav className="header-nav flex-r sp-bw ml-min mr-min mt-half ctr-vert">
       <div className="flex-r ctr-vert sp-bw sub-nav">
         <img src={Logo} alt="logo" className="logo " />
-        <NavLink
-          to="/home"
-          className={({ isActive }) => (isActive ? 'sidebar-link-active link' : ' link ')}>
+        <NavLink to="/products" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
           <Button className={'btn'} variant="text">
             Home
           </Button>
         </NavLink>
-        <NavLink to="/products" className={({ isActive }) => (isActive ? 'active-link' : ' link ')}>
-          <Button className={'btn'} variant="text">
-            Products
+        {!authStatus ? (
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? 'active-link ml1' : ' link ml1 ')}>
+            <Button variant="outlined">Login</Button>
+          </NavLink>
+        ) : (
+          <Button variant="outlined" onClick={() => logoutHandler()}>
+            Logout
           </Button>
-        </NavLink>
+        )}
       </div>
 
       <ul className="flex-r sub-nav sp-bw ctr-vert">
@@ -52,17 +55,6 @@ const Header = () => {
             <FavoriteBorderOutlinedIcon className="icon" />
           </Badge>
         </NavLink>
-        {!authStatus ? (
-          <NavLink
-            to="/login"
-            className={({ isActive }) => (isActive ? 'active-link ml1' : ' link ml1 ')}>
-            <AccountBoxOutlinedIcon className="icon" />
-          </NavLink>
-        ) : (
-          <Button sx={{ marginLeft: '1rem' }} variant="text" onClick={() => logoutHandler()}>
-            Logout
-          </Button>
-        )}
       </ul>
     </nav>
   );
